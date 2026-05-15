@@ -33,11 +33,11 @@
   "homepage": "https://monitor.scoo-va.info",
   "repository": {
     "type": "git",
-    "url": "https://github.com/zaidzedoo007/scoova-monitor.git",
+    "url": "https://github.com/Scoova/scoova-monitor-web.git",
     "directory": "sdk-web"
   },
   "bugs": {
-    "url": "https://github.com/zaidzedoo007/scoova-monitor/issues"
+    "url": "https://github.com/Scoova/scoova-monitor-web/issues"
   },
   "license": "Apache-2.0",
   "publishConfig": {
