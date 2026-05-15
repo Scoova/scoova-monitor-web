@@ -19,13 +19,15 @@ ScoovaMonitor.init('sm_your_api_key')
 
 ### Script tag (CDN)
 
+The published package is served from jsDelivr automatically — no build step:
+
 ```html
-<script src="https://cdn.scoo-va.info/monitor.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@scoova/monitor-web@1.4.0/dist/monitor.js"></script>
 <script>ScoovaMonitor.init('sm_your_api_key')</script>
 ```
 
-Self-hosting the script? Build it (`npm run build`) and serve
-`dist/monitor.js`.
+Prefer to self-host? Build it (`npm run build`) and serve `dist/monitor.js`
+from your own domain.
 
 ## Configuration
 
@@ -129,8 +131,11 @@ Manual flush is rarely needed.
 For de-obfuscated stack traces in the dashboard, upload your bundle's
 source maps after each release:
 
+With the package installed, the `scoova-upload-sourcemaps` CLI is on your
+project's path:
+
 ```bash
-sdk-web/scripts/scoova-upload-sourcemaps.js \
+npx scoova-upload-sourcemaps \
     --api-key sm_your_api_key \
     --version 1.0.0 \
     --dir ./dist
@@ -142,7 +147,6 @@ including CSP allowlists.
 ## Building from source
 
 ```bash
-cd sdk-web
 npm install
 npm run build       # emits dist/monitor.js
 ```

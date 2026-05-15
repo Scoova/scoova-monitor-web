@@ -3,12 +3,13 @@
   "version": "1.4.0",
   "description": "Scoova Monitor Web SDK — Error tracking, analytics, performance, and logging for web apps",
   "main": "dist/scoova-monitor.js",
-  "module": "dist/scoova-monitor.mjs",
+  "module": "dist/scoova-monitor.js",
   "types": "dist/scoova-monitor.d.ts",
   "files": [
     "dist",
     "scripts",
     "README.md",
+    "CHANGELOG.md",
     "LICENSE"
   ],
   "bin": {
@@ -33,8 +34,7 @@
   "homepage": "https://monitor.scoo-va.info",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Scoova/scoova-monitor-web.git",
-    "directory": "sdk-web"
+    "url": "https://github.com/Scoova/scoova-monitor-web.git"
   },
   "bugs": {
     "url": "https://github.com/Scoova/scoova-monitor-web/issues"

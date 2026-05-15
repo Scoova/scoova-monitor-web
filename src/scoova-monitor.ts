@@ -4,8 +4,8 @@
  * Lightweight JavaScript SDK for web applications.
  * Captures errors, performance (Web Vitals), page views, network requests, and custom events.
  *
- * Usage:
- *   <script src="https://cdn.scoo-va.info/monitor.js"></script>
+ * Usage (script tag, served from jsDelivr):
+ *   <script src="https://cdn.jsdelivr.net/npm/@scoova/monitor-web/dist/monitor.js"></script>
  *   <script>ScoovaMonitor.init("sm_your_api_key");</script>
  *
  * Or via npm:
