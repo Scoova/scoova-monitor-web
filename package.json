@@ -1,0 +1,50 @@
+{
+  "name": "@scoova/monitor-web",
+  "version": "1.4.0",
+  "description": "Scoova Monitor Web SDK — Error tracking, analytics, performance, and logging for web apps",
+  "main": "dist/scoova-monitor.js",
+  "module": "dist/scoova-monitor.mjs",
+  "types": "dist/scoova-monitor.d.ts",
+  "files": [
+    "dist",
+    "scripts",
+    "README.md",
+    "LICENSE"
+  ],
+  "bin": {
+    "scoova-upload-sourcemaps": "./scripts/scoova-upload-sourcemaps.js"
+  },
+  "scripts": {
+    "build": "tsc && cp dist/scoova-monitor.js dist/monitor.js",
+    "dev": "tsc --watch",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "monitoring",
+    "crash-reporting",
+    "analytics",
+    "web-vitals",
+    "error-tracking",
+    "scoova",
+    "performance",
+    "battery"
+  ],
+  "author": "Scoova <dev@scoo-va.info>",
+  "homepage": "https://monitor.scoo-va.info",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zaidzedoo007/scoova-monitor.git",
+    "directory": "sdk-web"
+  },
+  "bugs": {
+    "url": "https://github.com/zaidzedoo007/scoova-monitor/issues"
+  },
+  "license": "Apache-2.0",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3"
+  }
+}
