@@ -1,6 +1,6 @@
 {
   "name": "@scoova/monitor-web",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "Scoova Monitor Web SDK — Error tracking, analytics, performance, and logging for web apps",
   "main": "dist/scoova-monitor.js",
   "module": "dist/scoova-monitor.js",
@@ -16,7 +16,7 @@
     "scoova-upload-sourcemaps": "./scripts/scoova-upload-sourcemaps.js"
   },
   "scripts": {
-    "build": "tsc && cp dist/scoova-monitor.js dist/monitor.js",
+    "build": "tsc && sed '/^export /d' dist/scoova-monitor.js > dist/monitor.js",
     "dev": "tsc --watch",
     "prepublishOnly": "npm run build"
   },

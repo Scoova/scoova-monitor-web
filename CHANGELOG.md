@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.4.1
+
+- `dist/monitor.js` (the `<script>`-tag / CDN build) is now a classic
+  script. 1.4.0 shipped it as an ES module, which broke plain
+  `<script src>` usage in the browser. npm `import` usage was unaffected.
+
 ## 1.4.0
 
 Initial public release of the Scoova Monitor Web SDK.

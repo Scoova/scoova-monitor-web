@@ -22,7 +22,7 @@ ScoovaMonitor.init('sm_your_api_key')
 The published package is served from jsDelivr automatically — no build step:
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/@scoova/monitor-web@1.4.0/dist/monitor.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@scoova/monitor-web@1.4.1/dist/monitor.js"></script>
 <script>ScoovaMonitor.init('sm_your_api_key')</script>
 ```
 
