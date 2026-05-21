@@ -4,8 +4,8 @@
  * Lightweight JavaScript SDK for web applications.
  * Captures errors, performance (Web Vitals), page views, network requests, and custom events.
  *
- * Usage (script tag, served from jsDelivr):
- *   <script src="https://cdn.jsdelivr.net/npm/@scoova/monitor-web/dist/monitor.js"></script>
+ * Usage:
+ *   <script src="https://cdn.scoo-va.info/monitor.js"></script>
  *   <script>ScoovaMonitor.init("sm_your_api_key");</script>
  *
  * Or via npm:
@@ -23,6 +23,15 @@ interface Config {
   samplingRate?: number
   flushIntervalMs?: number
   maxBatchSize?: number
+
+  /** App version string for grouping crashes / sessions / retention by
+   *  release. Browsers don't expose the host app's version so the host
+   *  must pass it explicitly. Equivalent to CFBundleShortVersionString on
+   *  iOS / versionName on Android. Optional but strongly recommended. */
+  appVersion?: string
+  /** App build number — increments per CI build. Equivalent to
+   *  CFBundleVersion / versionCode on the native SDKs. Optional. */
+  appBuildNumber?: string
 }
 
 interface DeviceInfo {
@@ -53,7 +62,7 @@ interface LogEntry {
   timestamp: string
 }
 
-const SDK_VERSION = '1.4.0'
+const SDK_VERSION = '1.5.0'
 const HTTP_TIMEOUT_MS = 10_000
 const FAILURE_BACKOFF_THRESHOLD = 3
 const MAX_QUEUE_PERSISTED = 500 // per-queue cap for localStorage; 500 × ~500B ≈ 250KB
@@ -197,6 +206,8 @@ class ScoovaMonitorSDK {
     samplingRate: 1.0,
     flushIntervalMs: 300000, // 5 minutes — flush is also triggered by batch size, visibilitychange→hidden (sendBeacon), and crashes (which use a separate immediate path)
     maxBatchSize: 50,
+    appVersion: '',
+    appBuildNumber: '',
   }
 
   /**
@@ -906,6 +917,21 @@ class ScoovaMonitorSDK {
 
   private collectDevice(): Record<string, string> {
     const ua = navigator.userAgent
+    // navigator.connection — Chromium-only but it's there for ~70% of
+    // session-weighted traffic. effectiveType is "slow-2g" / "2g" / "3g"
+    // / "4g" — we collapse the slow- prefix into the headline category.
+    const conn = (navigator as any).connection
+    const effective: string = conn?.effectiveType || 'unknown'
+    const networkGeneration =
+      effective.startsWith('slow-') ? effective.slice(5).toUpperCase()
+      : /^[234]g$/i.test(effective) ? effective.toUpperCase()
+      : effective === 'unknown' ? '' : effective.toUpperCase()
+    // screen.orientation — Chromium + Firefox + WebKit. Apple gates the
+    // .type read so we wrap in try/catch.
+    const orientation = (() => {
+      try { return (screen.orientation?.type || '').includes('landscape') ? 'landscape' : 'portrait' }
+      catch { return '' }
+    })()
     return {
       manufacturer: this.getBrowser(ua),
       model: this.getOS(ua),
@@ -915,12 +941,19 @@ class ScoovaMonitorSDK {
       timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || '',
       country: navigator.language?.split('-')[1] || '',
       screenResolution: `${screen.width}x${screen.height}`,
-      networkType: (navigator as any).connection?.effectiveType || 'unknown',
+      networkType: effective,
+      networkGeneration,
+      orientation,
       framework: 'web',
       sdkVersion: SDK_VERSION,
       userAgent: ua.slice(0, 200),
       referrer: document.referrer?.slice(0, 200) || '',
       pageUrl: window.location.pathname,
+      // App version + build come from init() config; absent if the host
+      // didn't pass them. Matched against native SDKs for cross-platform
+      // release rollouts.
+      appVersion: this.config.appVersion || '',
+      appBuildNumber: this.config.appBuildNumber || '',
     }
   }
 

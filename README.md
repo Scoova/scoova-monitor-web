@@ -22,7 +22,7 @@ ScoovaMonitor.init('sm_your_api_key')
 The published package is served from jsDelivr automatically — no build step:
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/@scoova/monitor-web@1.4.1/dist/monitor.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@scoova/monitor-web@1.5.0/dist/monitor.js"></script>
 <script>ScoovaMonitor.init('sm_your_api_key')</script>
 ```
 
@@ -46,7 +46,7 @@ ScoovaMonitor.init('sm_your_api_key', {
 ```
 
 The Web SDK does not probe for third-party scripts and does not collect
-location — see [the documentation](https://monitor.scoo-va.info/docs)
+location — see [the SDK documentation](../docs/)
 for the full collection inventory.
 
 ## API
@@ -141,7 +141,7 @@ npx scoova-upload-sourcemaps \
     --dir ./dist
 ```
 
-See [the documentation](https://monitor.scoo-va.info/docs) for the full setup
+See [the SDK documentation](../docs/) for the full setup
 including CSP allowlists.
 
 ## Building from source
@@ -153,4 +153,4 @@ npm run build       # emits dist/monitor.js
 
 ## License
 
-[Apache 2.0](LICENSE).
+[Apache 2.0](../LICENSE).
